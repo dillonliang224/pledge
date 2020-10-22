@@ -1,0 +1,40 @@
+package ratelimit
+
+import (
+	"fmt"
+	"math/rand"
+	"sync"
+	"testing"
+	"time"
+)
+
+func TestNewThrottleRateLimiter(t *testing.T) {
+	r, err := NewThrottleRateLimiter(&Config{Throttle: 1 * time.Second})
+	if err != nil {
+		panic(err)
+	}
+
+	var wg sync.WaitGroup
+	rand.Seed(time.Now().UnixNano())
+
+	doWork := func(id int) {
+		token, err := r.Acquire()
+		fmt.Printf("ratelimit token %s acquired at %s...\n", token.ID, token.CreatedAt)
+		if err != nil {
+			panic(err)
+		}
+
+		n := rand.Intn(5)
+		fmt.Printf("Worker %d Sleeping %d seconds...\n", id, n)
+		time.Sleep(time.Duration(n) * time.Second)
+		fmt.Printf("Worker %d Done\n", id)
+		wg.Done()
+	}
+
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go doWork(i)
+	}
+
+	wg.Wait()
+}

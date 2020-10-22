@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package bookpb;
+
+service books {
+    rpc findById(FindByIdReq) returns (BookResp);
+}
+
+message FindByIdReq {
+    string id = 1;
+}
+
+message BookResp {
+    Book book = 1;
+}
+
+message Book {
+    string id = 1;
+    string title = 2;
+    string author = 3;
+    string cover = 4;
+    string shortIntro = 5;
+    string longIntro = 6;
+    string lastChapter = 7;
+    int64 chaptersCount = 8;
+    bool isSerial = 9;
+    int64 updated = 10;
+    int64 tocCount = 11;
+}

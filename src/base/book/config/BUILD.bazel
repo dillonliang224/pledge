@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["config.go"],
+    importpath = "git.dillonliang.cn/micro-svc/pledge/src/base/book/config",
+    visibility = ["//visibility:public"],
+    deps = ["//library/config:go_default_library"],
+)

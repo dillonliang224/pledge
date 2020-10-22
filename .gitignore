@@ -1,0 +1,14 @@
+.cache
+.idea
+.DS_Store
+
+bazel-bin
+bazel-genfiles
+bazel-base-booksvc
+bazel-out
+bazel-testlogs
+bazel-test
+bazel-pledge/**/*
+
+dockerbuild
+doc/

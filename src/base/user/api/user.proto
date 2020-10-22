@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package user.base;
+
+option go_package = "api";
+
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+service User {
+    rpc GetIdByToken(TokenReq) returns (TokenRes);
+    rpc GetInfoById(InfoReq) returns (UserInfo);
+}
+
+message Empty {}
+
+message TokenReq {
+    string token = 1;
+}
+
+message TokenRes {
+    string id = 1;
+}
+
+message InfoReq {
+    string id = 1 [(validator.field) = {
+    regex: "^[0-9a-f]{24}$"
+    human_error: "ID must a bson id"
+  }];
+    repeated string selects = 2;
+}
+
+message UserInfo {
+    string _id = 1;
+    string nickname = 2;
+    string avatar = 3;
+    string gender = 4;
+    int32 exp = 5;
+    int32 lv = 6;
+    int64 mobile = 7;
+}
