@@ -3,6 +3,8 @@ package mongodb
 import (
 	"context"
 	"time"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type params struct {
@@ -13,14 +15,16 @@ type params struct {
 	upsert     *bool
 	projection interface{}
 	ctx        context.Context
+	cancel     context.CancelFunc
 }
 
 type Param func(*params)
 
 func evaluateParam(param []Param) *params {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	ps := &params{
-		ctx: ctx,
+		ctx:    ctx,
+		cancel: cancel,
 	}
 	for _, p := range param {
 		p(ps)
@@ -68,5 +72,25 @@ func Upsert() Param {
 func Projection(projection interface{}) Param {
 	return func(o *params) {
 		o.projection = projection
+	}
+}
+
+func Select(fields []string) Param {
+	return func(o *params) {
+		pj := bson.M{}
+		for _, f := range fields {
+			pj[f] = true
+		}
+		o.projection = pj
+	}
+}
+
+func Exclude(fields []string) Param {
+	return func(o *params) {
+		pj := bson.M{}
+		for _, f := range fields {
+			pj[f] = false
+		}
+		o.projection = pj
 	}
 }

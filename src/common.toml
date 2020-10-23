@@ -4,4 +4,4 @@ debug = ":8082"
 grpc = ":8083"
 
 [mongodb]
-url = "mongodb://127.0.0.1/pledge"
+url = "mongodb://ifmoc:e84wkQiAHnvLnDOW@10.10.186.140/gleeman-goldcoin"

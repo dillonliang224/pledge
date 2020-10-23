@@ -120,7 +120,7 @@ type TreasureRobot struct {
 const (
 	TableTreasureActivity   = "TreasureActivity"
 	TableTreasureProduct    = "TreasureProduct"
-	TableTreasureRecord     = "TreasureRecord"
+	TableTreasureRecord     = "activitytreasurerecords"
 	TableTreasureWinner     = "TreasureWinner"
 	TableTreasurePeriod     = "TreasurePeriod"
 	TableTreasureFreeChance = "TreasureFreeChance"

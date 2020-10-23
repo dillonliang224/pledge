@@ -47,4 +47,5 @@ require (
 	go.uber.org/zap v1.15.0
 	google.golang.org/grpc v1.31.0
 	google.golang.org/grpc/examples v0.0.0-20200813212649-1dbe29f66992 // indirect
+	gopkg.in/mgo.v2 v2.0.0-20180705113604-9856a29383ce
 )
