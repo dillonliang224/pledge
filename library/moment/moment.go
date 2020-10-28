@@ -10,6 +10,10 @@ type Moment struct {
 	time.Time
 }
 
+func New() *Moment {
+	return &Moment{time.Now()}
+}
+
 func (moment *Moment) AddTime(num int, s string) time.Time {
 	switch s {
 	case "year":
@@ -42,16 +46,16 @@ func (moment *Moment) SubTime(num int, s string) time.Time {
 
 func (moment *Moment) StartOf(s string) time.Time {
 	switch s {
-	case "year":
+	case "year", "y":
 		y, _, _ := moment.Date()
 		return time.Date(y, time.January, 1, 0, 0, 0, 0, moment.Location())
-	case "month":
+	case "month", "m":
 		y, m, _ := moment.Date()
 		return time.Date(y, m, 1, 0, 0, 0, 0, moment.Location())
-	case "day":
+	case "day", "d":
 		y, m, d := moment.Date()
 		return time.Date(y, m, d, 0, 0, 0, 0, moment.Location())
-	case "hour":
+	case "hour", "h":
 		y, m, d := moment.Date()
 		return time.Date(y, m, d, moment.Time.Hour(), 0, 0, 0, moment.Location())
 	default:
@@ -61,14 +65,14 @@ func (moment *Moment) StartOf(s string) time.Time {
 
 func (moment *Moment) EndOf(s string) time.Time {
 	switch s {
-	case "year":
+	case "year", "y":
 		return moment.StartOf("year").AddDate(1, 0, 0).Add(-time.Nanosecond)
-	case "month":
+	case "month", "m":
 		return moment.StartOf("month").AddDate(0, 1, 0).Add(-time.Nanosecond)
-	case "day":
+	case "day", "d":
 		y, m, d := moment.Date()
 		return time.Date(y, m, d, 23, 59, 59, int(time.Second-time.Nanosecond), moment.Location())
-	case "hour":
+	case "hour", "h":
 		return moment.StartOf("hour").Add(time.Hour - time.Nanosecond)
 	default:
 		return time.Now()

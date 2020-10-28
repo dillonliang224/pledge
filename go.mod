@@ -30,6 +30,7 @@ require (
 	github.com/mwitkow/go-proto-validators v0.3.1
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.7.1
+	github.com/segmentio/kafka-go v0.4.8
 	github.com/segmentio/ksuid v1.0.3
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
